@@ -3,8 +3,11 @@ package main
 import (
 	"cinemagica/internal/api"
 	"cinemagica/internal/config"
+	movieBootstrap "cinemagica/internal/movie/bootstrap"
 	"fmt"
 	"net/http"
+
+	_ "github.com/lib/pq"
 )
 
 const (
@@ -18,9 +21,10 @@ func main() {
 	defer db.Close()
 
 	// Handler initialization
+	movieHandler := movieBootstrap.Bootstrap(db)
 
 	// Passing handlers to router
-	router := api.NewRouter()
+	router := api.NewRouter(movieHandler)
 
 	// Starting server
 	err := http.ListenAndServe(port, router.Route())
