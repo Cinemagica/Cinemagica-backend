@@ -2,8 +2,9 @@ package movie
 
 import (
 	"context"
-	"database/sql"
 	"time"
+
+	"github.com/jmoiron/sqlx"
 )
 
 const (
@@ -24,17 +25,11 @@ type storage struct {
 	TrailerURL  string    `db:"trailer_url"`
 }
 
-type dbEntity interface {
-	ExecContext(ctx context.Context, query string, args ...any) (sql.Result, error)
-	SelectContext(ctx context.Context, dest interface{}, query string, args ...interface{}) error
-	GetContext(ctx context.Context, dest interface{}, query string, args ...interface{}) error
-}
-
 type repository struct {
-	db dbEntity
+	db *sqlx.DB
 }
 
-func NewRepository(db dbEntity) *repository {
+func NewRepository(db *sqlx.DB) *repository {
 	return &repository{
 		db: db,
 	}

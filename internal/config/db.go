@@ -10,11 +10,9 @@ import (
 func ConnectDB(connectionStr string) (*sqlx.DB, error) {
 	db, err := sqlx.Open("postgres", connectionStr)
 	if err != nil {
-		fmt.Println("Connection unsuccessful!: ", err)
+		fmt.Println("Connection to DATABASE is unsuccessful!: ", err)
 		return nil, err
 	}
-
-	fmt.Println("Connection successful!")
 
 	return db, nil
 }

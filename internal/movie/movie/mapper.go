@@ -17,7 +17,8 @@ func storageToDTO(storage *storage) *DTO {
 }
 
 func storagesToDTOs(storage []*storage) []*DTO {
-	var DTOs []*DTO
+	DTOs := make([]*DTO, 0, len(storage))
+
 	for _, s := range storage {
 		DTOs = append(DTOs, storageToDTO(s))
 	}

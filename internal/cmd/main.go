@@ -2,6 +2,7 @@ package main
 
 import (
 	"cinemagica/internal/api"
+	reservationBootstrap "cinemagica/internal/booking/bootstrap"
 	"cinemagica/internal/config"
 	movieBootstrap "cinemagica/internal/movie/bootstrap"
 	"fmt"
@@ -23,8 +24,10 @@ func main() {
 	// Handler initialization
 	movieHandler := movieBootstrap.Bootstrap(db)
 
+	reservationHandler := reservationBootstrap.Bootstrap(db)
+
 	// Passing handlers to router
-	router := api.NewRouter(movieHandler)
+	router := api.NewRouter(movieHandler, reservationHandler)
 
 	// Starting server
 	err := http.ListenAndServe(port, router.Route())
