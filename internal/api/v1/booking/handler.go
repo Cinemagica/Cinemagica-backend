@@ -44,7 +44,7 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 		TotalPrice:   req.TotalPrice,
 		BookingTime:  parsedTime,
 		ProjectionID: req.ProjectionID,
-		Seats:        req.Seats,
+		SeatIDs:      req.SeatIDs,
 	}
 
 	err = h.service.Create(&dto)

@@ -2,10 +2,11 @@ package main
 
 import (
 	"cinemagica/internal/api"
-	reservationBootstrap "cinemagica/internal/booking/bootstrap"
+	bookingBootstrap "cinemagica/internal/booking/bootstrap"
 	bookingSeatBootstrap "cinemagica/internal/booking_seat/bootstrap"
 	"cinemagica/internal/config"
 	movieBootstrap "cinemagica/internal/movie/bootstrap"
+	seatBootstrap "cinemagica/internal/seat/bootstrap"
 	"fmt"
 	"net/http"
 
@@ -26,10 +27,11 @@ func main() {
 	movieHandler := movieBootstrap.Bootstrap(db)
 
 	bookingSeatService := bookingSeatBootstrap.Bootstrap(db)
-	reservationHandler := reservationBootstrap.Bootstrap(db, bookingSeatService)
+	seatService := seatBootstrap.Bootstrap(db)
+	bookingHandler := bookingBootstrap.Bootstrap(db, bookingSeatService, seatService)
 
 	// Passing handlers to router
-	router := api.NewRouter(movieHandler, reservationHandler)
+	router := api.NewRouter(movieHandler, bookingHandler)
 
 	// Starting server
 	err := http.ListenAndServe(port, router.Route())

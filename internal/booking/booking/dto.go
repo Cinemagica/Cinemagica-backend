@@ -10,5 +10,5 @@ type DTO struct {
 	TotalPrice   float64
 	BookingTime  time.Time
 	ProjectionID uint64
-	Seats        []uint8
+	SeatIDs      []uint64
 }

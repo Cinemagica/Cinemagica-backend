@@ -11,19 +11,19 @@ type MovieHandler interface {
 	GetAllWhichPremier(w http.ResponseWriter, r *http.Request)
 }
 
-type ReservationHandler interface {
+type BookingHandler interface {
 	Create(w http.ResponseWriter, r *http.Request)
 }
 
 type Router struct {
-	movieHandler       MovieHandler
-	reservationHandler ReservationHandler
+	movieHandler   MovieHandler
+	bookingHandler BookingHandler
 }
 
-func NewRouter(movieHandler MovieHandler, reservationHandler ReservationHandler) *Router {
+func NewRouter(movieHandler MovieHandler, bookingHandler BookingHandler) *Router {
 	return &Router{
-		movieHandler:       movieHandler,
-		reservationHandler: reservationHandler,
+		movieHandler:   movieHandler,
+		bookingHandler: bookingHandler,
 	}
 }
 
@@ -36,7 +36,7 @@ func (r *Router) Route() *chi.Mux {
 
 		v1.Get("/movies", r.movieHandler.GetAllWhichPremier)
 
-		v1.Post("/reservations", r.reservationHandler.Create)
+		v1.Post("/projections/booking", r.bookingHandler.Create)
 	})
 
 	return mux

@@ -1,7 +1,7 @@
 package booking_seat
 
 type Repository interface {
-	Create(bookingID int64, seatID uint8) error
+	Create(bookingID uint64, seatID uint64) error
 }
 
 type Service struct {
@@ -14,7 +14,7 @@ func NewService(repository Repository) *Service {
 	}
 }
 
-func (s *Service) Create(bookingID int64, seatID uint8) error {
+func (s *Service) Create(bookingID uint64, seatID uint64) error {
 	err := s.repository.Create(bookingID, seatID)
 	if err != nil {
 		return err

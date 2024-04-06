@@ -14,7 +14,7 @@ func NewRepository(db *sqlx.DB) *repository {
 	}
 }
 
-func (r *repository) Create(bookingID int64, seatID uint8) error {
+func (r *repository) Create(bookingID uint64, seatID uint64) error {
 	query := `
 		INSERT INTO bookings_seats (booking_id, seat_id)
 		VALUES ($1, $2)

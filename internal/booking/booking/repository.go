@@ -8,7 +8,7 @@ import (
 )
 
 type storage struct {
-	BookingID    int64     `db:"booking_id"`
+	BookingID    uint64    `db:"booking_id"`
 	ClientName   string    `db:"client_name"`
 	PhoneNumber  string    `db:"phone_number"`
 	TotalPrice   float64   `db:"total_price"`
@@ -26,7 +26,7 @@ func NewRepository(db *sqlx.DB) *repository {
 	}
 }
 
-func (r *repository) Create(booking *storage) (int64, error) {
+func (r *repository) Create(booking *storage) (uint64, error) {
 	query := `
  	INSERT INTO bookings (client_name, phone_number, total_price, booking_time, projection_id)
  	VALUES (:client_name, :phone_number, :total_price, :booking_time, :screen_id)
@@ -43,7 +43,7 @@ func (r *repository) Create(booking *storage) (int64, error) {
 		return 0, errors.New("no rows returned")
 	}
 
-	var id int64
+	var id uint64
 	if err := rows.Scan(&id); err != nil {
 		return 0, err
 	}
