@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS bookings_seats
+CREATE TABLE bookings_seats
 (
-    booking_id INTEGER,
-    seat_id    INTEGER,
+    booking_id BIGINT,
+    seat_id    BIGINT,
     PRIMARY KEY (booking_id, seat_id)
 );

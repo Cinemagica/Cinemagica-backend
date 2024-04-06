@@ -1,1 +1,0 @@
-DROP TABLE projection_rooms

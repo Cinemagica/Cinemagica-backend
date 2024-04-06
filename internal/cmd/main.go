@@ -3,6 +3,7 @@ package main
 import (
 	"cinemagica/internal/api"
 	reservationBootstrap "cinemagica/internal/booking/bootstrap"
+	bookingSeatBootstrap "cinemagica/internal/booking_seat/bootstrap"
 	"cinemagica/internal/config"
 	movieBootstrap "cinemagica/internal/movie/bootstrap"
 	"fmt"
@@ -24,7 +25,8 @@ func main() {
 	// Handler initialization
 	movieHandler := movieBootstrap.Bootstrap(db)
 
-	reservationHandler := reservationBootstrap.Bootstrap(db)
+	bookingSeatService := bookingSeatBootstrap.Bootstrap(db)
+	reservationHandler := reservationBootstrap.Bootstrap(db, bookingSeatService)
 
 	// Passing handlers to router
 	router := api.NewRouter(movieHandler, reservationHandler)

@@ -1,4 +1,4 @@
-package reservation
+package booking
 
 import (
 	"errors"
@@ -8,12 +8,12 @@ import (
 )
 
 type storage struct {
-	BookingID   int64     `db:"booking_id"`
-	ClientName  string    `db:"client_name"`
-	PhoneNumber string    `db:"phone_number"`
-	TotalPrice  float64   `db:"total_price"`
-	BookingTime time.Time `db:"booking_time"`
-	ScreenID    uint64    `db:"screen_id"`
+	BookingID    int64     `db:"booking_id"`
+	ClientName   string    `db:"client_name"`
+	PhoneNumber  string    `db:"phone_number"`
+	TotalPrice   float64   `db:"total_price"`
+	BookingTime  time.Time `db:"booking_time"`
+	ProjectionID uint64    `db:"screen_id"`
 }
 
 type repository struct {
@@ -28,7 +28,7 @@ func NewRepository(db *sqlx.DB) *repository {
 
 func (r *repository) Create(booking *storage) (int64, error) {
 	query := `
- 	INSERT INTO bookings (client_name, phone_number, total_price, booking_time, screen_id)
+ 	INSERT INTO bookings (client_name, phone_number, total_price, booking_time, projection_id)
  	VALUES (:client_name, :phone_number, :total_price, :booking_time, :screen_id)
  	RETURNING booking_id;
  `

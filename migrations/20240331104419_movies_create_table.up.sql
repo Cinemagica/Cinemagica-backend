@@ -1,14 +1,14 @@
-CREATE TABLE IF NOT EXISTS movies
+CREATE TABLE movies
 (
-    movie_id     SERIAL PRIMARY KEY,
+    movie_id     BIGSERIAL PRIMARY KEY,
     title        VARCHAR(255),
-    genre_id     VARCHAR(255),
-    description  VARCHAR(255),
-    "cast"       VARCHAR(255),
-    director     VARCHAR(255),
-    age_rating   VARCHAR(255),
+    genre_id     BIGINT,
+    description  TEXT,
+    release_date DATE,
+    age_rating   VARCHAR(20),
     duration     VARCHAR(20),
-    release_date TIMESTAMP,
-    poster_url   VARCHAR(255),
-    trailer_url  VARCHAR(255)
+    director     VARCHAR(255),
+    "cast"       TEXT,
+    poster_url   TEXT,
+    trailer_url  TEXT
 );

@@ -1,8 +1,8 @@
-CREATE TABLE IF NOT EXISTS seats
+CREATE TABLE seats
 (
-    seat_id      SERIAL PRIMARY KEY,
-    "row"        SMALLINT,
+    seat_id      BIGSERIAL PRIMARY KEY,
     seat_number  SMALLINT,
+    row          SMALLINT,
     availability BOOLEAN,
-    screening_id INTEGER
+    room_id      BIGINT
 );

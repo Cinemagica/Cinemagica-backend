@@ -1,14 +1,14 @@
 package booking
 
 import (
-	"cinemagica/internal/booking/reservation"
+	"cinemagica/internal/booking/booking"
 	"encoding/json"
 	"net/http"
 	"time"
 )
 
 type Service interface {
-	Create(dto *reservation.DTO) error
+	Create(dto *booking.DTO) error
 }
 
 type Handler struct {
@@ -23,7 +23,7 @@ func NewHandler(service Service) *Handler {
 
 func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 
-	var req BookingRequest
+	var req Request
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
@@ -38,12 +38,13 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dto := reservation.DTO{
-		ClientName:  req.ClientName,
-		PhoneNumber: req.PhoneNumber,
-		TotalPrice:  req.TotalPrice,
-		BookingTime: parsedTime,
-		ScreenID:    req.ScreenID,
+	dto := booking.DTO{
+		ClientName:   req.ClientName,
+		PhoneNumber:  req.PhoneNumber,
+		TotalPrice:   req.TotalPrice,
+		BookingTime:  parsedTime,
+		ProjectionID: req.ProjectionID,
+		Seats:        req.Seats,
 	}
 
 	err = h.service.Create(&dto)
