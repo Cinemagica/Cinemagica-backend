@@ -1,8 +1,8 @@
 CREATE TABLE seats
 (
-    seat_id      BIGSERIAL PRIMARY KEY,
-    seat_number  SMALLINT,
-    row          SMALLINT,
+    seat_id      SERIAL PRIMARY KEY,
+    seat_number  INTEGER,
+    row          INTEGER,
     availability BOOLEAN,
-    room_id      BIGINT
+    room_id      INTEGER
 );

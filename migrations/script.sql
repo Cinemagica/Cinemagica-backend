@@ -41,12 +41,12 @@ INSERT INTO genres ("name") VALUES
 SELECT t.*
 FROM public.seats t;
 
--- Insert seats for every room
+-- Insert seat for every room
 INSERT INTO seats (seat_number, "row", availability, room_id)
 SELECT
     ((room.seats / room.rows) * (row_index - 1)) + seat_in_row AS seat_number,
     row_index AS row_number,
-    true AS availability, -- Assuming all seats are initially available
+    true AS availability, -- Assuming all seat are initially available
     room.room_id
 FROM
     rooms AS room

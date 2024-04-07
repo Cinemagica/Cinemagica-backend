@@ -27,11 +27,11 @@ func main() {
 	movieHandler := movieBootstrap.Bootstrap(db)
 
 	bookingSeatService := bookingSeatBootstrap.Bootstrap(db)
-	seatService := seatBootstrap.Bootstrap(db)
+	seatHandler, seatService := seatBootstrap.Bootstrap(db)
 	bookingHandler := bookingBootstrap.Bootstrap(db, bookingSeatService, seatService)
 
 	// Passing handlers to router
-	router := api.NewRouter(movieHandler, bookingHandler)
+	router := api.NewRouter(movieHandler, bookingHandler, seatHandler)
 
 	// Starting server
 	err := http.ListenAndServe(port, router.Route())
