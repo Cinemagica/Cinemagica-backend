@@ -49,7 +49,12 @@ func (r *repository) GetAll(ctx context.Context) ([]*storage, error) {
 }
 
 func (r *repository) GetPremiers(ctx context.Context) ([]*storage, error) {
-	query := `SELECT * FROM movies WHERE release_date > NOW()`
+	query := `
+	SELECT * 
+	FROM movies 
+	WHERE release_date > NOW()
+	ORDER BY release_date DESC
+	`
 
 	movies := make([]*storage, 0, defaultSliceCapacityValue)
 

@@ -19,17 +19,23 @@ type SeatHandler interface {
 	GetSeatsByID(w http.ResponseWriter, r *http.Request)
 }
 
+type TheaterHandler interface {
+	GetTheaters(w http.ResponseWriter, r *http.Request)
+}
+
 type Router struct {
 	movieHandler   MovieHandler
 	bookingHandler BookingHandler
 	seatHandler    SeatHandler
+	theaterHandler TheaterHandler
 }
 
-func NewRouter(movieHandler MovieHandler, bookingHandler BookingHandler, seatHandler SeatHandler) *Router {
+func NewRouter(movieHandler MovieHandler, bookingHandler BookingHandler, seatHandler SeatHandler, theaterHandler TheaterHandler) *Router {
 	return &Router{
 		movieHandler:   movieHandler,
 		bookingHandler: bookingHandler,
 		seatHandler:    seatHandler,
+		theaterHandler: theaterHandler,
 	}
 }
 
@@ -45,6 +51,8 @@ func (r *Router) Route() *chi.Mux {
 		v1.Post("/projections/booking", r.bookingHandler.Create)
 
 		v1.Get("/seats/{roomID}", r.seatHandler.GetSeatsByID)
+
+		v1.Get("/theaters", r.theaterHandler.GetTheaters)
 	})
 
 	return mux

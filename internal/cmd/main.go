@@ -7,6 +7,7 @@ import (
 	"cinemagica/internal/config"
 	movieBootstrap "cinemagica/internal/movie/bootstrap"
 	seatBootstrap "cinemagica/internal/seat/bootstrap"
+	theaterBootstrap "cinemagica/internal/theater/bootstrap"
 	"fmt"
 	"net/http"
 
@@ -29,9 +30,10 @@ func main() {
 	bookingSeatService := bookingSeatBootstrap.Bootstrap(db)
 	seatHandler, seatService := seatBootstrap.Bootstrap(db)
 	bookingHandler := bookingBootstrap.Bootstrap(db, bookingSeatService, seatService)
+	theaterHandler := theaterBootstrap.Bootstrap(db)
 
 	// Passing handlers to router
-	router := api.NewRouter(movieHandler, bookingHandler, seatHandler)
+	router := api.NewRouter(movieHandler, bookingHandler, seatHandler, theaterHandler)
 
 	// Starting server
 	err := http.ListenAndServe(port, router.Route())
